@@ -1,9 +1,19 @@
 Package: lmsqreg
-Version: 0.1-1
-Title: LMS (Cole-Green Stat in Med 1992 quantile regression)
+Version: 0.2-0
+Title: LMS (Cole-Green 1992) Quantile Regression
 Author: VJ Carey <stvjc@channing.harvard.edu>
 Maintainer: VJ Carey <stvjc@channing.harvard.edu>
-Description: algorithms and graphics for nonlinear quantile regression
-Depends: parody
-License: LGPL
-URL: http://www.biostat.harvard.edu/~carey
+Description: Algorithms and graphics for nonlinear quantile regression using
+    the LMS (Lambda-Mu-Sigma) method of Cole and Green (1992). Provides
+    fitting, validation, and ggplot2-based visualization of reference centile
+    curves.
+Imports:
+    parody,
+    ggplot2,
+    patchwork,
+    stats
+License: MIT + file LICENSE
+URL: https://github.com/vjcitn/lmsqreg
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Config/roxygen2/version: 8.0.0
