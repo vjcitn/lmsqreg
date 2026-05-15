@@ -23,9 +23,12 @@ used within the fitted x range; constant extrapolation is applied outside
 it (with a warning).
 }
 \examples{
-set.seed(1)
-xf <- runif(80, 1, 10); yf <- exp(0.1 * xf + rnorm(80, sd = 0.3))
+set.seed(123)
+xf <- runif(200, 10, 20)
+yf <- 8 + 2 * sin(xf) + rnorm(200, 0, xf / 11)
 fit <- lmsqreg.fit(yf, xf)
-xnew <- runif(20, 1, 10); ynew <- exp(0.1 * xnew + rnorm(20, sd = 0.3))
+xnew <- runif(50, 10, 20)
+ynew <- 8 + 2 * sin(xnew) + rnorm(50, 0, xnew / 11)
 z <- zscores(ynew, xnew, fit)
+cat("z-score mean:", round(mean(z), 3), "\n")
 }

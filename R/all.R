@@ -40,10 +40,10 @@ utils::globalVariables(c("x", "y", "pct", "label"))
 #'   **11**, 1305–1319.
 #'
 #' @examples
-#' set.seed(42)
-#' x <- runif(100, 1, 10)
-#' y <- exp(0.1 * x + rnorm(100, sd = 0.3))
-#' fit <- lmsqreg.fit(y, x)
+#' set.seed(123)
+#' x <- runif(300, 10, 20)
+#' y <- 8 + 2 * sin(x) + rnorm(300, 0, x / 11)
+#' fit <- lmsqreg.fit(y, x, maxit = 25)
 #' print(fit)
 #'
 #' @importFrom stats approx smooth.spline predict fitted loess lowess median
@@ -482,11 +482,14 @@ plot.lmsqreg.fit <- function(x, fullsys = TRUE, medname = "P0.5",
 #' @param obj an object of class `"lmsqreg.fit"`
 #' @return numeric vector of z-scores of the same length as `y`
 #' @examples
-#' set.seed(1)
-#' xf <- runif(80, 1, 10); yf <- exp(0.1 * xf + rnorm(80, sd = 0.3))
+#' set.seed(123)
+#' xf <- runif(200, 10, 20)
+#' yf <- 8 + 2 * sin(xf) + rnorm(200, 0, xf / 11)
 #' fit <- lmsqreg.fit(yf, xf)
-#' xnew <- runif(20, 1, 10); ynew <- exp(0.1 * xnew + rnorm(20, sd = 0.3))
+#' xnew <- runif(50, 10, 20)
+#' ynew <- 8 + 2 * sin(xnew) + rnorm(50, 0, xnew / 11)
 #' z <- zscores(ynew, xnew, fit)
+#' cat("z-score mean:", round(mean(z), 3), "\n")
 #' @export
 zscores <- function(y, x, obj)
 {

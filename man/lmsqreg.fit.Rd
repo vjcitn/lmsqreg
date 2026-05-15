@@ -72,10 +72,10 @@ Fits the LMS (Lambda-Mu-Sigma) quantile regression model of Cole and Green
 (1992) using penalized likelihood with cubic smoothing splines.
 }
 \examples{
-set.seed(42)
-x <- runif(100, 1, 10)
-y <- exp(0.1 * x + rnorm(100, sd = 0.3))
-fit <- lmsqreg.fit(y, x)
+set.seed(123)
+x <- runif(300, 10, 20)
+y <- 8 + 2 * sin(x) + rnorm(300, 0, x / 11)
+fit <- lmsqreg.fit(y, x, maxit = 25)
 print(fit)
 
 }
