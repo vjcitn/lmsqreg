@@ -1,5 +1,5 @@
 Package: lmsqreg
-Version: 0.2.2
+Version: 0.2.3
 Title: LMS (Cole-Green 1992) Quantile Regression
 Authors@R: c(
     person(given = "Vincent", family = "Carey",

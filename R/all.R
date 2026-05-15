@@ -197,10 +197,10 @@ lmsqreg.fit <- function (YY, TT, edf = c(3, 5, 3), targlen = 50, targetx = seq(m
             psd1 <- U$lam/W$lam + lam
             nlam <- Smooth.spline(TT, psd1, w = W$lam, df = edf[1])$y
             psd2 <- U$mu/W$mu + mu - ((nlam - lam) * W$lam.mu)/W$mu
-            nmu <- Smooth.spline(TT, psd2, w = W$mu, df = edf[2])$y
+            nmu <- pmax(Smooth.spline(TT, psd2, w = W$mu, df = edf[2])$y, 1e-6)
             psd3 <- U$sig/W$sig + sig - ((nlam - lam) * W$lam.sig)/W$sig -
                 ((nmu - mu) * W$mu.sig)/W$sig
-            nsig <- Smooth.spline(TT, psd3, w = W$sig, df = edf[3])$y
+            nsig <- pmax(Smooth.spline(TT, psd3, w = W$sig, df = edf[3])$y, 1e-6)
         }
         psd1a <- U$lam/W$lam + nlam - ((nmu - mu) * W$lam.mu)/W$lam -
             ((nsig - sig) * W$lam.sig)/W$lam
@@ -214,12 +214,16 @@ lmsqreg.fit <- function (YY, TT, edf = c(3, 5, 3), targlen = 50, targetx = seq(m
         nmu <- mutmp$y
         if (!is.null(mu.fixed))
             nmu <- rep(mu.fixed, N)
+        else
+            nmu <- pmax(nmu, 1e-6)
         psd3a <- U$sig/W$sig + sig - ((nlam - lam) * W$lam.sig)/W$sig -
             ((nmu - mu) * W$mu.sig)/W$sig
         sigtmp <- Smooth.spline(TT, psd3a, w = W$sig, df = edf[3])
         nsig <- sigtmp$y
         if (!is.null(sig.fixed))
             nsig <- rep(sig.fixed, N)
+        else
+            nsig <- pmax(nsig, 1e-6)
         if (verb) {
             message("lrange: ", paste(range(lam - nlam), collapse = " "))
             message("mrange: ", paste(range(mu - nmu), collapse = " "))
