@@ -325,11 +325,12 @@ print.lmsqreg.fit <- function(x, ...)
         ", independent variable:", x[[1]]$xname, "\n")
     cat(line2)
     if (x[[1]]$converged)
-        line3 <- paste("The fit converged with EDF=(", paste(x[[1]]$edf,
-            collapse = ","), "), PL=", round(x[[1]]$pl, 3), "\n")
-    else line3 <- paste("The fit failed to converge with EDF=(", paste(x[[1
-        ]]$edf, collapse = ","), "), after", x[[1]]$niter,
-            "iterations.\n")
+        line3 <- paste("The fit converged in", x[[1]]$niter,
+            "iterations with EDF=(", paste(x[[1]]$edf, collapse = ","),
+            "), PL=", round(x[[1]]$pl, 3), "\n")
+    else line3 <- paste("The fit failed to converge after", x[[1]]$niter,
+            "iterations with EDF=(", paste(x[[1]]$edf, collapse = ","),
+            "); consider increasing maxit.\n")
     cat(line3)
     vout <- x[[3]]
     nom <- vout$p.val
