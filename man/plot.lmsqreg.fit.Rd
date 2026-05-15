@@ -12,6 +12,7 @@
   ylab = NULL,
   Yshift = -x[[1]]$Yshift,
   title = NULL,
+  show.data = TRUE,
   CEX = 1.1,
   tx = function(z) z,
   xaxat = NULL,
@@ -35,6 +36,9 @@ name stored in \code{x})}
 any automatic shift applied during fitting)}
 
 \item{title}{character; main title for the centile panel}
+
+\item{show.data}{logical; if \code{TRUE} (default), overlay the raw data points
+in grey on the centile panel}
 
 \item{CEX}{numeric; size scaling factor for points and text}
 

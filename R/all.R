@@ -291,7 +291,7 @@ lmsqreg.fit <- function (YY, TT, edf = c(3, 5, 3), targlen = 50, targetx = seq(m
     ps[ntests + 1] <- ks.test(z, "pnorm")$p.val
     tps[ntests + 1] <- t.test(z)$p.val
     vps[ntests + 1] <- unit.var.test(z)$p.val
-    lms.ans <- list(ordt = TT, lam = lam, mu = mu, sig = sig,
+    lms.ans <- list(ordt = TT, rawY = YY, lam = lam, mu = mu, sig = sig,
         upl = upl, finalz = z, ps = ps, tps = tps, vps = vps,
         edf = edf, niter = iter, converged = converged, fit.date = fit.date,
         fitter.version = fit.version, yname = yn, xname = xn,
@@ -362,6 +362,8 @@ print.lmsqreg.fit <- function(x, ...)
 #'   any automatic shift applied during fitting)
 #' @param title character; main title for the centile panel
 #' @param CEX numeric; size scaling factor for points and text
+#' @param show.data logical; if `TRUE` (default), overlay the raw data points
+#'   in grey on the centile panel
 #' @param tx function applied to x values before plotting (e.g. for a date
 #'   transformation)
 #' @param xaxat numeric vector of custom x-axis tick positions
@@ -376,7 +378,7 @@ print.lmsqreg.fit <- function(x, ...)
 plot.lmsqreg.fit <- function(x, fullsys = TRUE, medname = "P0.5",
     xlab = NULL, ylab = NULL,
     Yshift = -x[[1]]$Yshift,
-    title = NULL,
+    title = NULL, show.data = TRUE,
     CEX = 1.1, tx = function(z) z,
     xaxat = NULL, xaxlab = NULL, ...)
 {
@@ -443,6 +445,10 @@ plot.lmsqreg.fit <- function(x, fullsys = TRUE, medname = "P0.5",
         stringsAsFactors = FALSE
     )
 
+    data_df <- data.frame(
+        x = ordt_tx,
+        y = obj[[1]]$rawY + Yshift
+    )
     p_centile <- ggplot(centile_df, aes(x = x, y = y, group = pct)) +
         geom_line(linetype = "dashed") +
         geom_text(
@@ -455,6 +461,10 @@ plot.lmsqreg.fit <- function(x, fullsys = TRUE, medname = "P0.5",
         x_scale +
         theme_bw() +
         theme(legend.position = "none")
+    if (show.data)
+        p_centile <- p_centile +
+            geom_point(data = data_df, aes(x = x, y = y),
+                colour = "grey60", size = CEX * 0.4, inherit.aes = FALSE)
 
     (p_lam | p_mu | p_sig) / p_centile +
         plot_layout(heights = c(1.5, 3))
