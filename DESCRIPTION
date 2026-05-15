@@ -1,8 +1,12 @@
 Package: lmsqreg
-Version: 0.2.1
+Version: 0.2.2
 Title: LMS (Cole-Green 1992) Quantile Regression
-Author: VJ Carey <stvjc@channing.harvard.edu>
-Maintainer: VJ Carey <stvjc@channing.harvard.edu>
+Authors@R: c(
+    person(given = "Vincent", family = "Carey",
+        email = "stvjc@channing.harvard.edu", role = c("aut", "cre")),
+    person(given = "Claude", family = "Sonnet",
+        role = "eng", comment = "Anthropic AI assistant")
+    )
 Description: Algorithms and graphics for nonlinear quantile regression using
     the LMS (Lambda-Mu-Sigma) method of Cole and Green (1992). Provides
     fitting, validation, and ggplot2-based visualization of reference centile
