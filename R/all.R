@@ -237,7 +237,7 @@ lmsqreg.fit <- function (YY, TT, edf = c(3, 5, 3), targlen = 50, targetx = seq(m
     converged <- TRUE
     if (nonconv) {
         warning(paste(maxit, "iterations; did not converge, change=",
-            change))
+            change, "; consider increasing maxit"))
         converged <- FALSE
     }
     if (all(lam != 0))

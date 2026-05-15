@@ -7,6 +7,8 @@ Description: Algorithms and graphics for nonlinear quantile regression using
     the LMS (Lambda-Mu-Sigma) method of Cole and Green (1992). Provides
     fitting, validation, and ggplot2-based visualization of reference centile
     curves.
+Suggests:
+    testthat (>= 3.0.0)
 Imports:
     parody,
     ggplot2,
